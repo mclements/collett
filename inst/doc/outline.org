@@ -1,0 +1,812 @@
+#+title: BDS Masters: Survival analysis
+#+latex_header: \usepackage[margin=25mm]{geometry}
+#+BEAMER_THEME: Madrid
+#+SETUPFILE: theme-readtheorg.setup
+#+LATEX_HEADER: \renewcommand{\alert}[1]{\textcolor{blue}{#1}}
+
+* Principles
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+
+- Based on the "Modelling Survival Data in Medical Research" by Collett (fourth edition).
+- Balance between theory and applications.
+- Include R code throughout. Quarto or Org Mode or Jupyter?
+- 18 x 2.5 hour lectures
+- 18 x 2 hour labs
+
+- Estimands, estimators and estimates. Use this to provide an overview of the course. Will this be introduced in Biostatistics 1?
+- Lectures to include R code and output.
+- Natural splines using QR decomposition and using an analytical solution for B-splines (as per splines2). (shift this to the appropriate chapter).
+- Multivariate delta method.
+- DAGs for model building.
+- Regression standardisation.
+- Time splitting, counting processes. 
+- Different time scales - this is a key point.
+- Exercises
+- Simulations! Both for assessing and investigating the statistical properties and for post-estimation.
+- Small sample estimation using the bootstrap
+- Multistate models! 
+  + Aalen-Johansen estimator 
+  + ODEs?
+
+* TODO
+
+*** TODO Adapt the Biostatistics III labs for this course
+*** TODO Set up the course material on Canvas
+*** DONE Ask Paul about including the Collett book (fourth edition) in the course documentation for Survival Analyst -- to ensure that the course text is available at the library (or libraries?).
+*** TODO Set up the language server. 
+*** TODO Get course material for Biostatistics 1
+
+* R review
+
+- R formulas - see Biostat3 material
+- Review exercises - see Biostat3 material
+- Principle: use the same tools as the students (but I don't want to:). RStudio, Quarto, webR (cf. Emacs, Org Mode).
+- We really need our own web-site. Use biostat3.net as a short-term solution? We need this for the webR setup.
+- What about using the R language server? Set up the "languageserver" package from CRAN and use the lsp package on Emacs.
+
+
+
+
+## * Lectures
+
+* Day 1
+
+*** Friendly faces
+- Course director: [[mailto:mark.clements@ki.se][Mark Clements]]
+- Course administrator: who?
+- Teachers: who?
+
+* Course text: Collett (2023)
+#+attr_html: :width 150px
+#+attr_latex: :width 150px
+[[file:9781032252858.jpg]]
+
+* Course text: Collett (2023)
+- Collett's *Modelling Survival Data in Medical Research* (fourth edition) is the main course text. 
+- In my opinion, this is a very good text. The mathematical level is modest (which has pros and cons), while the coverage of topics is excellent. However, it: 
+  + Introduces counting processes and martingale theory late and with limited mathematical insight
+  + It is not as rigorous as it could be (e.g. does not introduce Lebesgue-Stieljes integration)
+  + Provides little material on (a) left truncation, (b) causal inference, (c) Poisson regression and (d) multi-state models.
+# which I believe is a nice way to introduce explicit modelling of the baseline before introducing Cox regression.
+- For more rigorous treatment of survival analysis, I recommend:
+  + Andersen et al (1993)
+  + Fleming and Harrington (1991)
+  + Aalen et al (1998)
+
+* Outline of the course
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+- Central concepts in survival analysis: censoring, truncation, survival function, hazard function.
+- Estimating survival using the Kaplan-Meier method.
+- Estimating rates and modelling them using Poisson regression.
+- Cox proportional hazards model.
+- The proportional hazards assumption.
+- Modelling non-proportional hazards.
+- Comparison of the Cox and Poisson regression models.
+- Parametric survival models.
+- Risk set sampling (e.g. nested case-control studies)
+- Non-collapsibility of the hazard ratio
+- And??
+
+* Intended learning outcomes and software choices
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+- Understand and be able to apply the concepts of survival analysis
+- The lectures, exercises, assignments and examinations will use R code -- so you will need to be read and understand R code. For the exercises, assignments and examinations, you are free to use any software that you choose:
+  + R has many packages for time-to-event analysis (of admittedly varying quality:)
+  + Stata has good commands for time-to-event analysis
+  + SAS has some useful time-to-event procedures 
+  + Python and Julia have comparatively weak libraries for time-to-event analysis
+  + (Don't get me started on using SPSS for time-to-event analyses...)
+
+* Take-home examination
+
+  The course grade is based solely on a *take-home* written examination. The exam requires you to understand the concepts of survival analysis, together with writing code and interpreting output from standard statistical software. Instructions:
+
+  - The examination is individual-based: *you are not allowed to cooperate with anyone*, although you are encouraged to consult the available literature. The teachers will use Urkund to check for plagiarism (https://staff.ki.se/plagiarism-checks-in-doctoral-education)
+  - The examination will be made available at *12:00* on Wednesday 15 November 2023 and the examination is due by 17:00 on Wednesday 22 November 2023.
+  - The examination will be graded and results will be returned to you by 1 December 2023.
+  - Students who do not obtain a passing grade in the first examination will be offered a second examination within 2 months of the final day of the course.
+  - Do not write answers by hand: please use Word, \LaTeX\ or a similar format for your examination report.
+  - Motivate all answers and show all calculations in your examination report, but write as brief an answer as possible without loss of clarity. Define any notation that you use for equations. The examination report should be written in English.
+#  - You are expected to interpret R computer code and output.
+  - You are expected to write computer code to read the data and for your analysis. Include your computer code in your report. You are encouraged to use R, Stata or SAS for your analysis; if you wish to use other software, please contact Mark Clements mailto:mark.clements@ki.se.
+  - Email the examination report containing the answers *as a pdf file* to mailto:gunilla.nilsson.roos@ki.se. *Write your name in the email, but do not write your name in the document containing the answers.*
+
+
+
+
+* Introduction to the course
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+- This is the first time that this course has been delivered. This means that you will get a chance to develop the course material (this needs to be framed appropriately)
+- By the end of course, you should be able to code an analysis of time-to-event data. The course will also serve as a more advanced introduction to the R programming language. 
+
+* Scientific imperialism: Time-to-event analyses are key for biostatistics
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+- Synonyms: survival analysis; time-to-event analysis; reliability analysis.
+- *Cohort studies* are a (arguably *the*) key design in biostatistics
+  + For individuals with known exposures at baseline, follow them through time and record whether they have an event of interest
+  + The individuals could come from an observational cohort or a randomised controlled trial (hence everything that we do in this course has applications to randomised controlled trials based on times to events)
+  + For aetiology (understanding the causes of disease), we are interested in the exposure *preceding* the outcome (one of Hill's causal criteria); if the exposure is measured /after/ the outcome, we cannot rule out *reverse causation* (that the outcome caused the exposure)
+- *Time* is a key concept in biostatistics
+  + We are interested in the *length of time* that an individual is exposed (epidemiologists use the term *person-time*)
+  + We are also interested in different *time scale* $u$ with a *time origin* $t_o$ relative to calendar time $t$ and a scalar \sigma, such that $u=(t-t_o)/\sigma$. If calendar time is represented by days, then \sigma is commonly represented by 365.24 or 365.25 to convert to years.
+  + Example time scales:
+    - Calendar time using a common fixed date origin; for example, $t_o=\texttt{as.Date("0-01-01")}$.
+    - Time from study entry, where $t_o$ is the date of study entry
+    - Attained age, where $t_o$ is the date of birth
+    - Time from a specific intervention at date $t_o$ (e.g. treatment)
+    - Time from a cancer diagnosis at date $t_o$
+  + Some times are fixed for an individual; for example, birth cohort is defined by (and fixed at) the date of birth.
+
+# * Some common terms
+# - *Rate* can be defined narrowly as an incidence rate per person-time (e.g. (number of events)/(person-time)). Conversely, it can be defined very broadly as any ratio.
+# - *Precision* relates to a small variance
+# - *Bias* relates to 
+
+* Formal requirements of time-to-event data
+** Three basic requirements define time-to-event measurements
+1. precise definition of the start and end of follow-up time
+2. unambiguous origin for the measurement of `time'; scale of time (e.g. time since diagnosis, attained age)
+3.  precise definition of `response' or occurrence of the event of interest
+
+
+* Exercise: Examples of time-to-event measurements
+
+For the following examples, discuss whether the times and events are well measured.
+
+- Time from diagnosis of cancer to death due to the cancer
+- Time from diagnosis of cancer to death due to any causes
+- Time from diagnosis of localised cancer to metastases
+- Time from randomisation to death in a cancer clinical trial
+- Time from randomisation to recurrence in a cancer clinical trial
+- Time from remission to relapse of leukemia
+- Time to re-offending after being released from jail
+- Time between two attempts to donate a unit of blood for transfusion purposes
+- Time from HIV infection to AIDS
+- Time to the first goal (or next goal) in a hockey game
+- Time from exposure to cancer incidence in an epidemiological cohort study
+
+
+* Datasets and research questions and estimands and estimators
+
+TBC
+
+* §1-2: survival data and non-parametric estimators.
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+- Definitions can all be done as an exercise. "How would you define the CDF, PDF, survival and hazard?"
+- How formal should be this development? Ideally, we would adapt the approach given in the "Probability theory" course (SF2940) with Collett.
+- Standard equations
+  + For a time to event variable $T$, we have the cumulative distribution function (CDF) $F(t)=Pr(T \leq t)$. Results from SF2940: right continuous (and limit from the left?). Should we assume that the processes are cadlag? What about absolutely continuous? Plot!
+
+  + Survival $S(t)$ is the probability of no event from time 0 through to (but not including) $t$: $S(t)=1-F(t)=Pr(T > t)$. 
+    - Note that Collett defines $S(t)=Pr(T \geq t)$ (that is, including $t$), which simplifies some later formulae, but which is inconsistent with the common definition for the CDF and $S=1-F$.
+  + The probability density function is $f(t)=\lim_{\delta \downarrow 0} \frac{F(t+\delta)-F(t)}{\delta}$. 
+  + Hazard is defined in Collett as $h(t)=\lim_{\delta \downarrow 0} \frac{Pr(t\leq T<t+\delta|T\geq t)}{\delta}$. Note that this is conditional on no events through to time $t$, whereas the PDF is unconditional. This will be important later.
+  - It is useful to define the left limit of a function $g(t-) = \lim_{u \uparrow t} g(u)$
+  - For our definition of survival, we have that $h(t) = f(t)/S(u-)$
+  + Relationships: Collett shows that $h(t)=\frac{f(t)}{S(t)}$. He also remarks that that equation implies that $h(t)=-\frac{d}{dt} \log(S(t))$. Proof: $-\frac{d}{dt} \log(S(t)) = -\frac{S'(t)}{S(t)} = \frac{f(t)}{S(t)} = h(t)$.
+- TODO Latex symbol for square at the end of a proof
+- Plots of the standard equations
+- When to introduce the likelihood components for the different observations?
+- Why the focus on "survival"?
+- Summary of what is distinctive about survival analysis
+- TODO plots of the datasets
+- How soon should we introduce counting processes?
+
+* Plots of event times without censoring or truncation
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+
+#+begin_src R :results output graphics file :exports both :file ecdf_survfit.pdf :width 7 :height 5
+  library(survival)
+  time = c(11, 13, 13, 13, 13, 13, 14, 14, 15, 15, 17)
+  par(mfrow=1:2) # graphics layout with 1 row and 2 columns; see also graphics::layout
+  plot(stats::ecdf(time), xlim=c(0,18))
+  survfit1 = survival::survfit(survival::Surv(time)~1)
+  plot(survfit1, conf.int=FALSE, xlim=c(0,18), main="survfit(Surv(time)~1)", xlab="x", ylab="S(x)")
+  with(survfit1, points(time,surv,pch=19))
+  
+#+end_src
+
+#+RESULTS:
+[[file:ecdf_survfit.pdf]]
+
+
+* Likelihoods for different observations
+
+| Entry time | Observation type                      | Likelihood                       |
+|------------+---------------------------------------+----------------------------------|
+| 0          | Exact time $t$                        | $f(t)$                           |
+| 0          | Left censored: $T\leq t$              | $F(t)$                           |
+| 0          | Right censored: $T > t$               | $S(t)$                           |
+| 0          | Interval censored: $t_1 \leq T < t_2$ | $S(t_1) - S(t_2)$                |
+| $t_0$      | Exact time $t$                        | $f(t)/S(t_0)$                    |
+| $t_0$      | Right censored: $T > t$               | $S(t)/S(t_0)$                    |
+| $t_0$      | Interval censored: $t_1 \leq T < t_2$ | $\frac{S(t_1) - S(t_2)}{S(t_0)}$ |
+
+* Likelihoods for different observations (follow-up from time 0)
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+\scriptsize
+#+begin_src R :results output graphics file :exports both :file censoring_graphs.pdf :width 7 :height 5
+  par(mfrow=c(2,2))
+  x <- seq(0,11,length=301)
+  h <- 0.1 # constant hazard -> exponential distribution
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Exact time", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  points(5,dexp(5,h),pch=21,bg="black")
+  lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Right censored", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  index <- x>=5
+  polygon(c(x[index],max(x),5),c(dexp(x[index],h),0,0),col="grey",border="grey")
+  lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  lines(x,dexp(x,h))
+  box()
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Left censored", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  index <- x<=5
+  polygon(c(x[index],max(x[index]),0),c(dexp(x[index],h),0,0),col="grey",border="grey")
+  lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  lines(x,dexp(x,h))
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Interval censored", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  index <- x>=4 & x<=6
+  polygon(c(x[index],max(x[index]),min(x[index])),c(dexp(x[index],h),0,0),col="grey",
+          border="grey")
+  lines(c(4,4),c(0,dexp(4,h)),lty=2)
+  lines(c(6,6),c(0,dexp(6,h)),lty=2)
+  lines(x,dexp(x,h))
+#+end_src
+
+#+RESULTS:
+[[file:censoring_graphs.pdf]]
+
+
+* Likelihoods for different observations
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+\scriptsize
+#+begin_src R :results output graphics file :exports both :file "censoring_truncation.pdf" :width 7 :height 5
+  par(mfrow=c(2,3))
+  x <- seq(0,11,length=301)
+  h <- 0.1 # constant hazard
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Exact time", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  points(5,dexp(5,h),pch=21,bg="black")
+  lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Right censored", xlab="Time (years)",
+       xlim=c(0,10), ylim=c(0,0.1))
+  index <- x>=5
+  polygon(c(x[index],max(x),5),c(dexp(x[index],h),0,0),col="grey",border="grey")
+  lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  lines(x,dexp(x,h))
+  box()
+  ## plot(x,dexp(x,h),type="l",ylab="f(t)", main="Left censored", xlab="Time (years)",
+  ##      xlim=c(0,10), ylim=c(0,0.1))
+  ## index <- x<=5
+  ## polygon(c(x[index],max(x[index]),0),c(dexp(x[index],h),0,0),col="grey",border="grey")
+  ## lines(c(5,5),c(0,dexp(5,h)),lty=2)
+  ## lines(x,dexp(x,h))
+  plot(x,dexp(x,h),type="l",ylab="f(t)", main="Interval censored", 
+       xlab="Time (years)", xlim=c(0,10), ylim=c(0,0.1))
+  index <- x>=4 & x<=6
+  polygon(c(x[index],max(x[index]),min(x[index])),c(dexp(x[index],h),0,0),
+          col="grey",border="grey")
+  lines(c(4,4),c(0,dexp(4,h)),lty=2)
+  lines(c(6,6),c(0,dexp(6,h)),lty=2)
+  lines(x,dexp(x,h))
+  index <- x>=2
+  S <- pexp(2,h,lower.tail=FALSE)
+  plot(x[index],dexp(x[index],h)/S,type="l", main="Left truncated, exact time",
+       xlab="Time (years)",ylab="f(t)",
+       xlim=c(0,10), ylim=c(0,0.13))
+  points(5,dexp(5,h)/S,pch=21,bg="black")
+  lines(c(5,5),c(0,dexp(5,h)/S),lty=2)
+  lines(c(2,2),c(0,dexp(2,h)/S),lty=3)
+  index <- x<2
+  lines(x[index],dexp(x[index],h)/S,lty=3)
+  index <- x>=2
+  plot(x[index],dexp(x[index],h)/S,type="l",ylab="f(t)",
+       main="Left truncated\nright censored",
+       xlab="Time (years)", xlim=c(0,10), ylim=c(0,0.13))
+  index <- x>=5
+  polygon(c(x[index],max(x),5),c(dexp(x[index],h)/S,0,0),col="grey",border="grey")
+  lines(c(5,5),c(0,dexp(5,h)/S),lty=2)
+  lines(x[index],dexp(x[index],h)/S)
+  index <- x<2
+  lines(x[index],dexp(x[index],h)/S,lty=3)
+  lines(c(2,2),c(0,dexp(2,h)/S),lty=3)
+  box()
+  index <- x>=2
+  plot(x[index],dexp(x[index],h)/S,type="l",ylab="f(t)",
+       main="Left-truncated\ninterval censored", 
+       xlab="Time (years)", xlim=c(0,10), ylim=c(0,0.13))
+  index <- x>=4 & x<=6
+  polygon(c(x[index],max(x[index]),min(x[index])),c(dexp(x[index],h)/S,0,0),
+          col="grey",border="grey")
+  lines(c(4,4),c(0,dexp(4,h)/S),lty=2)
+  lines(c(6,6),c(0,dexp(6,h)/S),lty=2)
+  lines(x[index],dexp(x[index],h)/S)
+  index <- x<2
+  lines(x[index],dexp(x[index],h)/S,lty=3)
+  lines(c(2,2),c(0,dexp(2,h)/S),lty=3)
+  box()
+#+end_src
+
+#+RESULTS:
+[[file:censoring_truncation.pdf]]
+
+
+* §3: Cox regression. 
+* §4: Cox model checking?
+   - Is this sufficiently important for an entire lecture?
+* §5: Parametric survival models.
+   - Should we introduce Poisson regression here?
+* §6: Flexible parametric models
+   - Flexible AFTs?
+* §7: Model checking?
+* §8: Time-dependent variables
+* §9: Interval censoring
+* §10: frailty models
+   - Non-collapsibility?
+* §11: non-proportionality (and institutional comparisons?)
+    - A bit of a catch-all chapter
+* §12: Competing risks
+* §13 Recurrent events
+    - Is there sufficient material here?
+* §13: Multi-state models
+* §14: Dependent censoring
+* §15: Sample size requirements -- and simulation experiments?
+    - Introduce simulation earlier?
+* §16: Bayesian models
+* Spare lecture?
+* Review material
+
+* Additional material
+- biostat3 course material.
+- Counting processes
+- Review questions
+- Estimands, estimators and estimates
+- Causal inference -- this is largely missing from the book
+- Prediction -- more emphasis
+
+* Assignments
+- Complete the labs?
+- Simulation studies?
+- Algorithm development?
+
+* Examination
+- Take-home examination to cover concepts and analysis
+
+* Code to read in the datasets
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+\scriptsize
+
+#+begin_src R
+
+  remote_unzip = function(description, filename, remove.MACOSX=TRUE, header=TRUE, ...) {
+      temp_file = tempfile()
+      temp_dir = tempdir()
+      on.exit(unlink(temp_file))
+      on.exit(unlink(temp_dir))
+      download.file(description,temp_file)
+      paths = unzip(temp_file,exdir=temp_dir)
+      if (remove.MACOSX)
+          paths = paths[grep("MACOSX", paths, invert=TRUE)]
+      names = paths |> tools::file_path_sans_ext() |> lapply(strsplit, split="/") |> sapply(function(x) x[[1]][4]) # Warning: brittle
+      out = lapply(paths, read.table, header=header, ...)
+      names(out) = names
+      out
+  }
+  temp = remote_unzip("https://s3-eu-west-1.amazonaws.com/s3-euw1-ap-pe-ws4-cws-documents.ri-prod/9781032252858/Data%20sets%20from%20Modelling%20Survival%20Data%20in%20Medical%20Research%2C%204th%20edition.zip")
+
+  ## read_remote_unz = function(description, filename, ...) {
+  ##     temp_file <- tempfile()
+  ##     on.exit(unlink(temp_file))
+  ##     download.file(description,temp_file)
+  ##     read.table(unz(temp_file, filename), ...)
+  ## }
+  ## temp = read_remote_unz("https://s3-eu-west-1.amazonaws.com/s3-euw1-ap-pe-ws4-cws-documents.ri-prod/9781032252858/Data%20sets%20from%20Modelling%20Survival%20Data%20in%20Medical%20Research%2C%204th%20edition.zip",
+  ##                        "Clinical trial of tamoxifen in breast cancer patients.dat",
+  ##                        header=TRUE)
+
+  ## temp <- tempfile()
+  ## download.file("https://s3-eu-west-1.amazonaws.com/s3-euw1-ap-pe-ws4-cws-documents.ri-prod/9781032252858/Data%20sets%20from%20Modelling%20Survival%20Data%20in%20Medical%20Research%2C%204th%20edition.zip",temp)
+  ## file <- unz(temp, "Clinical trial of tamoxifen in breast cancer patients.dat")
+  ## temp2 = read.table(file, header=TRUE)
+  ## unlink(temp)
+
+  library(ascii)
+  options(asciiType="org")
+
+  str(temp)
+  
+  ## dput(names(temp))
+  ## TODO: short names? 
+  ## TODO: Add dataset documentation and save in the collett package
+  c("A numerical illustration", # 37*4
+    "Bone marrow transplantation in the treatment of leukaemia", # 23*8
+    "Bone marrow transplantation", # 37*9
+    "Chemotherapy in ovarian cancer patients",  # 26*3
+    "Chronic active hepatitis", # 44*3
+    "Chronic granulomatous disease", # 128*12
+    "Clinical trial of tamoxifen in breast cancer patients", # 641*18
+    "Comparison of two treatments for prostatic cancer", # Table 1.4, page 10, Example 1.4, 38*8
+    "Comparisons between kidney transplant centres", # 1439*9
+    "Data from a cirrhosis study (baseline)", # 12*6
+    "Data from a cirrhosis study (in counting process format)", # 54*7
+    "Data from a cirrhosis study (lbr data)", # 42*3
+    "Health evaluation and linkage to primary care", # 447*7
+    "Infection in patients on dialysis", # 13*5
+    "Patient outcome following bone marrow transplantation", # 2204*9
+    "Prognosis for women with breast cancer", # Table 1.2, page 7, Example 1.2, 45*3
+    "Pulmonary metastasis", # Example 2.1, page 16, 11*1
+    "Recurrence free survival in breast cancer patients", # 686*11 
+    "Recurrence of an ulcer", # 43*6
+    "Recurrence of bladder cancer", # 86*6
+    "Recurrence of mammary tumours in female rats", # 254*4
+    "Survival following aortic valve replacement", # 988*11
+    "Survival following kidney transplantation", # 434*7
+    "Survival of black ducks", # 50*6
+    "Survival of laboratory mice", # 181*3
+    "Survival of liver transplant recipients", # 1761*7
+    "Survival of multiple myeloma patients", # Table 1.3, page 9, Example 1.3, 48*10
+    "Survival of patients registered for a lung transplant", # 196*7
+    "Survival of patients with gastric cancer", # 90*4
+    "Survival times of patients with melanoma ", # 30*4
+    "Time to death while waiting for a liver transplant", # 281*7
+    "Time to discontinuation of the use of an IUD", # Table 1.1, page 6, Example 1.1, 18*2
+    "Treatment of hypernephroma" # 36*4
+    )
+
+  sapply(temp,dim)
+  
+  ## Figures 1.1 and 1.2 (APPROXIMATE DATA!)
+  ## I assume that these data are not included in the zip file
+  ## TODO: can we get these data from Dave?
+  Study_time_for_eight_patients_in_a_survival_study <-
+      data.frame(Patient = 1:8,
+                 Tstart = c(0,1,2,0.5,3,2,2.25,3.75),
+                 Tstop = c(4+6,4+8,16,14,3.6,16,3.8,4+5),
+                 Event = c("D","L","A","D","D","A","L","D"))
+  ## Figure 1.1
+  with(Study_time_for_eight_patients_in_a_survival_study,
+  {
+           plot(c(0,17), c(1,8), type="n", xlab="Study time", ylab="Patient", axes=FALSE)
+           axis(1,labels=FALSE,tick=FALSE)
+           axis(2,at=1:8,labels=8:1)
+           box()
+           points(Tstart, 9-Patient, pch=19)
+           index = Tstop != 16
+           points(Tstop[index], 9-Patient[index], pch=22, bg=1)
+           segments(Tstart, 9-Patient, Tstop, 9-Patient)
+           text(Tstop, 9-Patient, labels=Event, pos=4)
+           abline(v=4, lty=2)
+           abline(v=16, lty=2)
+           mtext("End of recruitment",1,adj=4/17,cex=0.8)
+           mtext("End of study",1,adj=16/17,cex=0.8)
+  })
+  ## Figure 1.2
+  with(Study_time_for_eight_patients_in_a_survival_study,
+  {
+      Time = Tstop - Tstart
+      Event = ifelse(Event == "D", "D", "C")
+      Index = order(-Time)
+      Time = Time[Index]
+      Event = Event[Index]
+      Patient = Patient[Index]
+      plot(c(0,17), c(1,8), type="n", xlab="Patient time", ylab="Patient", axes=FALSE)
+      axis(1,labels=FALSE,tick=FALSE)
+      axis(2,at=1:8,labels=Patient)
+      box()
+      points(Time, 1:8, pch=22, bg=1)
+      segments(0, 1:8, Time, 1:8)
+      text(Time, 1:8, labels=Event, pos=4)
+  })
+
+  ## Figure 2.1
+  plot(survfit(Surv(time,event)~1, data=transform(temp$`Pulmonary metastasis`, event=TRUE)),
+       conf.int=FALSE, xlab="Survival time", ylab="Estimated survivor function")
+  plot(ecdf(temp$`Pulmonary metastasis`$time), xlim=c(0,18))
+  plot(ecdf(temp$`Pulmonary metastasis`$time), verticals=TRUE)
+
+  with(survfit(Surv(time,event)~1, data=transform(temp$`Pulmonary metastasis`, event=TRUE)), {
+      max.time = max(time)*1.1
+      plot(c(0,max.time), 0:1,
+           type="n",
+           xlab="Survival time",
+           ylab="Estimated survivor function")
+      n.time = length(time)
+      segments(c(0,time), c(1,surv), c(time,max.time), c(1,surv))
+      points(time,surv,pch=19)
+      abline(h=0:1,lty=2)
+  })
+  
+  ## Table 2.1    
+  library(biostat3)
+  actuarial <-
+      biostat3::lifetab2(Surv(time, status)~1, data=temp$`Survival of multiple myeloma patients`,
+                         breaks=c(seq(0,60,by=12), Inf))
+  acturial
+  ## Figure 2.2
+  with(actuarial, {
+      time=c(tstart,70)
+      survStar=c(1,surv)
+      plot(time,survStar,type="S", xlab="Survival time", ylab="Estimated survivor function",
+           ylim=0:1)
+      lines(tstart,surv,lty=2)
+  })
+
+  
+#+end_src
+
+#+begin_src R
+  set.seed(12345)
+  X1=rnorm(1e6,1,1)
+  X2=rnorm(1e6,2,3)
+  X3=rnorm(1e6,3,4)
+  mean(X1>X2 & X1>X3)
+  integrate(function(x) dnorm(x,1,1)*pnorm(x,2,3)*pnorm(x,3,4), -Inf, Inf)
+
+  set.seed(12345)
+  library(mvtnorm)
+  mu = c(1,2,3)
+  Sigma = matrix(c(1,1,1,
+                   1,4,1,
+                   1,1,5), 3)
+  X = rmvnorm(1e5, mu, Sigma)
+  index=(1:3)>=2
+  mu1=mu[!index]
+  mu2=mu[index]
+  Sigma11=Sigma[!index,!index]
+  Sigma22=Sigma[index,index]
+  Sigma12=Sigma[!index,index]
+  Sigma21=Sigma[index,!index]
+
+  mean(X[,1]>X[,2] & X[,1]>X[,3])
+  integrate(Vectorize(function(x) {
+      mu2bar = drop(mu2 + Sigma12 %*% solve(Sigma11) %*% (x-mu1))
+      Sigma22bar = Sigma22 - Sigma12%*%solve(Sigma11)%*%Sigma21
+      dnorm(x,1,1)*pmvnorm(lower=c(-Inf,-Inf),upper=c(x,x),mean=mu2bar,sigma=Sigma22bar)
+  }), -Inf, Inf)
+
+  
+#+end_src
+
+
+#+begin_src R
+
+  library(Rcpp)
+  sourceCpp(code="
+  // [[Rcpp::depends(hesim)]]
+  // [[Rcpp::depends(RcppArmadillo)]]
+  #include <hesim.h>
+  // [[Rcpp::export]]
+  double test_inline_gengamma(double mu, double sigma, double Q) {
+    return hesim::stats::gengamma(mu, sigma, Q).random();
+  }")
+  set.seed(12345)
+  test_inline_gengamma(1.0, 1.0, 1.0)
+
+  ## example data
+  tab <- data.frame(num=1:26,abc=letters)
+  x <- data.frame(n=c(3,8),z=c("c","h"))
+  ## using prodlim
+  library(prodlim)
+  row.match(x,tab)
+  ## using base
+  row.match2 = function(a,b) {
+      colnames(b) = colnames(a)
+      merge(a, transform(b,.id.=1:nrow(b), all.x=TRUE), by=colnames(b))$.id.
+  }
+  row.match2(x,tab)
+  ## using dplyr
+  library(dplyr)
+  row.match3 = function(a,b) {
+      colnames(b) = colnames(a)
+      left_join(a, mutate(b,.id.=1:nrow(b)), by=colnames(b))$.id.
+  }
+  row.match3(x,tab)
+  ## using data.table
+  library(data.table)
+  row.match4 = function(a,b) {
+      colnames(b) = colnames(a)
+      merge(as.data.table(a), as.data.table(b)[,.id.:=1:nrow(b)], by=colnames(b))$.id.
+  }
+  row.match4(x,tab)
+
+  
+  
+#+end_src
+
+
+# Other material - to be incorporated
+
+* Chapter 1
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+\scriptsize
+
+- The standard definition for a CDF is F(t)= Pr(T<=t). This function is continuous from the right with a limit from the left (cadlag). TODO: Show a plot.
+- Consequently, survival would then be defined as S(t)=1-F(t)= Pr(T>t). These definitions vary from Collett - we shall see whether those different  definitions affect any of the later developments in the book.
+- Introduce the book's datasets and add some further examples. Include right censoring, left truncation and possibly interval censoring.
+- Exact event time: f(T=t)
+- Left censoring: P(T<=t)= F(t)
+- Right censoring: P(T>t) = S(t)
+- Interval censoring: P(l<=T<u)= S(l)-S(u)
+- Left truncation: condition on the entry time (as always, we should be careful here)
+  + Exact time: f(T=t|T>t0)=f(T=t)/S(t0)
+  + Right censoring: P(T>t|T>t0) = S(t)/S(t0)
+  + Interval censoring: P(l<=T<u|T>t0)= (S(l)-S(u))/S(t0)
+- The book also could introduce left truncation sooner - and introduce different time scales or, more specifically, different time origins. This is familiar material from the Biostat3 course.
+- We could also discuss the issues with measurement of time and events.
+- Time origins: when is time 0? 
+  + If the date of birth, then we have attained age 
+  + If a fixed calendar year (e.g. 0 Common Era) then it is attained calendar period
+  + If the date is diagnosis then it is time from diagnosis
+  + If the date is study entry then it is time on study
+  + Etc.
+  + Do this as an exercise.
+- Accuracy of times and events: do as an exercise.
+- What about discrete time events? 
+
+* Chapter 2
+
+- Actuarial estimator
+  + Consider bias from KM if there is a high degree of censored ties 
+- Kaplan-Meier without any justification:). Should we consider a more formal justification using counting processes? 
+- Nelson-Aalen - better introduced in terms of an estimator of the cumulative hazard. 
+- I really want to introduce counting processes here and link with the Probability course. This would ease the derivation of the variance estimators.
+- Taylor series -> delta method.
+- Hazard estimators. Links with density estimation. Smoothing suggests care in the interpretation.
+- Log-rank and Peto-Peto estimators. Awkward discussion on evidence for non-proportionality.
+
+* Chapter 3: Cox
+
+- How to motivate the partial likelihood? Can we start with a full likelihood and then move to the partial?
+- Basics for regression modelling. 
+- Model selection - where are the DAGs?? We need to separate the concepts of description, aetiology and prediction.
+- What to do for the prediction work? 
+- Regression standardisation.
+
+* Musings
+:PROPERTIES:
+:BEAMER_opt: allowframebreaks,label=
+:END:
+\scriptsize
+
+- I really like the Lawless paper that introduces a likelihood decomposition (uses H):
+- 
+\begin{align*}
+L = & \product_{i} (h_0(t_i|\gamma) exp(\beta^T x_i))^{\delta_i} S_0(t_i|\gamma)^{\exp(\beta^T x_i)} \\
+\log(L) = & \sum_{i} \delta_i ( \log(h_0(t_i|\gamma)) +\beta^T x_i) - H_0(t_i|\gamma)\exp(\beta^T x_i) \\
+
+= & \sum_{i} \delta_i (\log(H_0(t_i|\gamma)) +\beta^T x_i) - H_0(t_i|\gamma)\exp(\beta^T x_i) + \delta_i \log(h_0(t_i|\gamma)/H_0(t_i|\gamma)) \\
+
+= & l_1(beta, gamma) + l_2(gamma)
+
+\end{align*}
+
+where l_1 is the kernel for a Poison likelihood and l_2 is an adjustment for the hazard compared with cumulative hazard for the events.
+
+Partial likelihood
+
+\begin{align*}
+l = & \sum_i \delta_i (\beta^T x_i - \log (\sum_{j \in R(i)} \exp(beta^T x_j))
+\end{align*}
+
+Assume that the individuals are ordered by distinct times t_i (with t_0=0), then
+
+\begin{align*}
+H_0(t_i|\gamma)
+& \approx \sum_{j <= i} (t_j- t_{j-1}) h_0(t_j|\gamma)
+\end{align*}
+
+
+log(L) = & \sum_{i} \delta_i (\log(H_0(t_i|\gamma)) +\beta^T x_i) - H_0(t_i|\gamma)\exp(\beta^T x_i) + \delta_i \log(h_0(t_i|\gamma)/H_0(t_i|\gamma)) \\
+
+= & \sum_{i} \delta_i (\log(H_0(t_i|\gamma)) +\beta^T x_i) - (\sum_{j <= i} (t_j- t_{j-1}) h_0(t_j|\gamma)\exp(\beta^T x_i) + \delta_i \log(h_0(t_i|\gamma)/H_0(t_i|\gamma)) + (\sum_{j <= i} (t_j- t_{j-1}) h_0(t_j|\gamma) - H_0(t_i|\gamma))\exp(\beta^T x_i) \\ 
+% reverse the order of the summations
+
+= & \sum_{i} \delta_i (\log(H_0(t_i|\gamma)) +\beta^T x_i) - (\sum_{j \in R(i)} (t_i- t_{i-1}) h_0(t_i|\gamma)\exp(\beta^T x_j) + \delta_i \log(h_0(t_i|\gamma)/H_0(t_i|\gamma)) + (\sum_{j <= i} (t_j- t_{j-1}) h_0(t_j|\gamma) - H_0(t_i|\gamma))\exp(\beta^T x_i) \\ 
+
+Poisson regression: 
+L = e^\mu \mu^y / y!
+where mu is the expected number of events and y is the observed number of events assuming a Poisson distribution -- independent events - but do we need to assume a piecewise constant rate? We want the mean mu to have a specific meaning as the mean for a given group. Assume we also the person-time, then the expected number of events will be h*t for some average hazard h. If the hazard varies by time the h*t = H(t), which is the cumulative hazard.
+
+L = e^{-h t} (h t)^{\delta_i} / \delta_i!
+=> log(L) = - h t + delta_i log(h t) - log(delta_i) 
+= - H(t) + delta_i log(H(t)) - log(delta_i)
+= - H_0(t|\gamma)exp(\beta^T x_i) + delta_i log(H_0(t|\gamma)exp(\beta^T x_i)) - log(delta_i)
+
+= - H_0(t|\gamma)exp(\beta^T x_i) + delta_i log(H_0(t|\gamma)exp(\beta^T x_i)) - log(delta_i) + delta_i log(t_0(t|\gamma)exp(\beta^T x_i)) - delta_i log(h_0(t|\gamma)exp(\beta^T x_i)) \\
+
+= - H_0(t|\gamma)exp(\beta^T x_i) + delta_i log(h_0(t|\gamma)exp(\beta^T x_i)) - log(delta_i) -  
+delta_i log(H_0(t|\gamma)exp(\beta^T x_i)) + delta_i log(h_0(t|\gamma)exp(\beta^T x_i))
+
+= - H_0(t|\gamma)exp(\beta^T x_i) + delta_i log(h_0(t|\gamma)exp(\beta^T x_i)) - log(delta_i) + delta_i log(h_0(t|\gamma)/H_0(t|\gamma))
+
+Conversely, we can manipulate the original likelihood to include a Poisson kernel and another factor.
+
+What happens if we include H as a function of time? If H(t)=exp(exp(gamma_0) t) then it is a constant rate. 
+
+decompositions:)
+kernel of a Poisson pdf.
+
+
+* Chapter 4: Cox residuals
+
+- Importance of residuals and outliers?
+- Essentials as per Biostat3?
+  + Test for and evaluate non-proportionality using Schoenfeld residuals. 
+- Martingale residuals for functional form for covariates.
+
+* Chapter 5: Parametric models
+* Chapter 6: Flexible parametric models
+
+- Stronger introduction to piecewise constant hazard models - using Poisson regression.
+
+
+# Additional material
+
+* Estimands, estimators and estimates
+- An *estimand* is what we (conceptually) want to calculate -- which often relates to our research question. An example is the proportion of individuals who are alive at five years after study entry.
+- An *estimator* is a calculation process (e.g. a formula or an algorithm) to calculate an estimate. An example is the Kaplan-Meier estimator for survival (that is, the formula).
+- An *estimate* is the resulting calculation from applying an estimator to some data. An example would be the ``estimated'' five-year survival from a Kaplan-Meier estimator from a particular study with follow-up to a specific date.
+- We often need to consider how to interpret an estimator for a given study design. For example, an odds ratio estimate using a conditional logistic regression estimator from a nested case-control study with incidence density sampling can be interpreted as a hazard ratio -- which may be the estimand of interest.
+
+* Estimands and estimators
+\scriptsize
+| Estimand                    | Estimator                     | Notes                      |
+|-----------------------------+-------------------------------+----------------------------|
+| Survival                    | Kaplan-Meier                  | Non-parametric             |
+|                             | Poisson regression            | Awkward post-estimation    |
+|                             | Cox model + Breslow           | Proportional hazards       |
+|                             | Flexible parametric model     |                            |
+| Cumulative hazard           | Nelson-Aalen                  | Non-parametric             |
+| Hazard                      | Nelson-Aalen + Kernel density | Smoothed                   |
+| Rate                        | count/(person-time)           | Poisson distribution       |
+|                             | Poisson regression            |                            |
+| Rate ratio                  | Poisson regression            |                            |
+| Hazard ratio                | Cox model                     | Non-parametric baseline    |
+|                             | Flexible parametric model     |                            |
+| Time-dependent rate ratio   | Poisson model                 |                            |
+| Time-dependent hazard ratio | Cox model                     | Inflexible implementations |
+|                             | Flexible parametric model     |                            |
+\normalsize
+# How to choose an estimand?
+
+* R: the good, the bad and the ugly
+  + R is well suited to (a) doing very simple things quickly and (b) doing complex things well (e.g. model formulae). However, R is not always easy to do intermediate-level tasks. 
+  + From a computer science perspective, R is arguably a poorly designed language, particularly compared with Python. Ironically, statisticians do not design clean computing languages (arguably, we also do not code well -- but that's another story).
+  + R's packaging is both a strength and a weakness. The Comprehensive R Archive Network (CRAN) is a well managed software archive that works well in most circumstances. R can suffer from *versioning hell*, where some package needs some specific version of a dependency, who needs a specific version of another dependency, which may cause problems with the baseline package. Python also suffers here. Both R and Python have ways to work with this, where specific versions of the dependencies are used.
+  + R has three broad types of graphics packages: base, ggplot2 and lattice. I will use each of these -- although ggplot2 is arguably the most popular.
+  + R has several popular constellations of packages. First, there is base R, which typically has the lowest dependencies. Second, there is the "tidyverse", which includes dplyr for data management and ggplot2. There are other constellations emerging, including the "fastverse", including data.table for data management. I am old school and will tend to use base R, but we could convert all of the example code to tidyverse -- if there is sufficient interest.
+
+* Relative survival
+
+- Should this be introduced?
+- How to use ratetable() to calculate a full likelihood? This would allow for a comparison with other models. 
+  + For the brcancer example, we would need (a) a ratetable object for Germany and (b) dates of study entry for the patients (either the midpoint or randomly sampled). For (a): are there any ratetables on CRAN?
+  + Does Lasse do this for cuRe? I think the cuRe package allows for importing from the Human Mortality Database -- which may not allow re-packaging on CRAN, suggesting finding publicly available data. 
+  + But there are many other datasets from cuRe and relsurv that we could use. Don't sweat it:).
+- How about a Poisson likelihood approach?
+
