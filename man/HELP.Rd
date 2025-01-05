@@ -7,24 +7,24 @@
 \format{
 A data frame with 447 rows and 7 variables:
 \describe{
-\item{\code{subject}}{integer COLUMN_DESCRIPTION}
-\item{\code{days}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{gender}}{integer COLUMN_DESCRIPTION}
-\item{\code{housing}}{integer COLUMN_DESCRIPTION}
-\item{\code{linkage}}{integer COLUMN_DESCRIPTION}
+\item{\code{subject}}{integer subject id}
+\item{\code{days}}{integer time to linkage to primary care in days}
+\item{\code{status}}{integer event indicator (0=no linkage, 1=linkage)}
+\item{\code{age}}{integer age of patient in years}
+\item{\code{gender}}{integer gender of the patient (0=female, 1=male)}
+\item{\code{housing}}{integer Homelessness status (0=homeless, 1=housed)}
+\item{\code{linkage}}{integer assistance to linking to healthcare (0=no, 1=yes)}
 }
 }
 \usage{
 HELP
 }
 \description{
-DATASET_DESCRIPTION
+A clinical trial for patients in a residential detoxification programme. Patients were randomised to either get a referral to a HELP clinic or not.
 }
 \details{
 Collett (2023) defines this dataset as "help", however
 that leads to issues with using R's help system. We have
-changed the dataset name to "HELP".
+changed the dataset name to "HELP". Moreover, the book uses the variables "Time" an d"Help", whereas the dataset includes variables "days" and "linkage", respectively.
 }
 \keyword{datasets}

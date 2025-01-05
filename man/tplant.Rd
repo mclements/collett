@@ -7,22 +7,22 @@
 \format{
 A data frame with 434 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{donor}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{diabetes}}{integer COLUMN_DESCRIPTION}
-\item{\code{cit}}{double COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{donor}}{integer donoe id}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer event indicator (0=censored, 1=graft failure or death with a functioning graft)}
+\item{\code{age}}{integer patient age (years)}
+\item{\code{diabetes}}{integer diabetes status (0=absent, 1=present)}
+\item{\code{cit}}{double cold ischaemic time, the time in hours between retrieval of the kidney from the donor and the transplantation}
 }
 }
 \usage{
 tplant
 }
 \description{
-DATASET_DESCRIPTION
+Survival following kidney transplantation
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

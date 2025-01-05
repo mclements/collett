@@ -7,20 +7,20 @@
 \format{
 A data frame with 13 rows and 5 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{sex}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer time to infection (days)}
+\item{\code{status}}{integer event indicator (0=censored, 1=infection)}
+\item{\code{age}}{integer age in years}
+\item{\code{sex}}{integer sex of the patient (1=male, 2=female)}
 }
 }
 \usage{
 dialysis
 }
 \description{
-DATASET_DESCRIPTION
+Time from dialysis to infection for patients with diseases of the kidney.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

@@ -7,19 +7,24 @@
 \format{
 A data frame with 36 rows and 4 variables:
 \describe{
-\item{\code{nephrectomy}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{nephrectomy}}{integer indicator for nephrectomy (0=No; 1=Yes)}
+\item{\code{age}}{integer age group (1=<60; 2=60-70; 3=>70}
+\item{\code{time}}{integer for the follow-up time in months}
+\item{\code{status}}{integer for status at the end of follow-up (1=died; 0=censored)}
 }
 }
 \usage{
 kidney
 }
 \description{
-DATASET_DESCRIPTION
+This study was undertaken at the University of Oklahoma
+Health Sciences Center to investigate survival among 36
+patients with a kidney tumour (hypernephroma). Standard tangent
+included chemotherapy and immunotherapy, with some patients
+also having a nephrectomy, or surgical removal of the
+kidney. For further details, see Lee and Wang (2013).
 }
-\details{
-DETAILS
+\references{
+Lee ET, Wang J. Statistical Methods for Survival Data Analysis. New York, NY: John Wiley & Sons; 2013, fourth edition. \url{https://www.wiley.com/en-sg/Statistical+Methods+for+Survival+Data+Analysis\%252C+4th+Edition-p-9781118095027}
 }
 \keyword{datasets}

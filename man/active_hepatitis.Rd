@@ -7,18 +7,18 @@
 \format{
 A data frame with 44 rows and 3 variables:
 \describe{
-\item{\code{treatment}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{treatment}}{integer treatment (1=prednisolone, 2=control)}
+\item{\code{time}}{integer survival time from admission to study (months)}
+\item{\code{status}}{integer event indicator (1=event, 0=right censored)}
 }
 }
 \usage{
 active_hepatitis
 }
 \description{
-DATASET_DESCRIPTION
+Clinical trial of 44 patients with chronic active hepatitis randomised to either the drug prednisolone or an untreated control group.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

@@ -7,21 +7,21 @@
 \format{
 A data frame with 50 rows and 6 variables:
 \describe{
-\item{\code{duck}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{weight}}{integer COLUMN_DESCRIPTION}
-\item{\code{length}}{integer COLUMN_DESCRIPTION}
+\item{\code{duck}}{integer duck indicator}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer status of bird (0=alive or missing, 1=dead)}
+\item{\code{age}}{integer age group (0=hatch-year bird, 1=bird aged >= 1 year)}
+\item{\code{weight}}{integer weight of bird in g}
+\item{\code{length}}{integer length of wing in mm}
 }
 }
 \usage{
 ducks
 }
 \description{
-DATASET_DESCRIPTION
+Black ducks, Anas rubripes, were followed the US Fish and Wildlife Service.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

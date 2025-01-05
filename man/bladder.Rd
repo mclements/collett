@@ -7,21 +7,21 @@
 \format{
 A data frame with 86 rows and 6 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{init}}{integer COLUMN_DESCRIPTION}
-\item{\code{size}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient number (1-86)}
+\item{\code{time}}{integer survival time in months}
+\item{\code{status}}{integer status of patient (0=censored, 1=recurrence)}
+\item{\code{treat}}{integer treatment group (1=placebo, 2=thiotepa)}
+\item{\code{init}}{integer initial number of tumours}
+\item{\code{size}}{integer diameter of larger initial tumour in cm}
 }
 }
 \usage{
 bladder
 }
 \description{
-DATASET_DESCRIPTION
+Placebo controlled trial of bladder cancer patients randomised to thiopeta or to placebo
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

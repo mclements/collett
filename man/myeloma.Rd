@@ -7,25 +7,33 @@
 \format{
 A data frame with 48 rows and 10 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{sex}}{integer COLUMN_DESCRIPTION}
-\item{\code{bun}}{integer COLUMN_DESCRIPTION}
-\item{\code{ca}}{integer COLUMN_DESCRIPTION}
-\item{\code{hb}}{double COLUMN_DESCRIPTION}
-\item{\code{pcells}}{integer COLUMN_DESCRIPTION}
-\item{\code{protein}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer for a patient identifier}
+\item{\code{time}}{integer survival time in months}
+\item{\code{status}}{integer for status at follow-up (0=Alive, 1=Dead)}
+\item{\code{age}}{integer age at diagnosis in years}
+\item{\code{sex}}{integer for sex of the patient (1=male, 2=female)}
+\item{\code{bun}}{integer level of blood urea nitrogen at diagnosis (unit assumed to be mg/dL based on the normal range for adults reported by \url{https://en.wikipedia.org/wiki/Blood_urea_nitrogen})}
+\item{\code{ca}}{integer serum calcium at diagnosis in mg/dL}
+\item{\code{hb}}{double for serum hemoglobin level at diagnosis in g/dL (equivalently, grams per 100 mL)}
+\item{\code{pcells}}{integer percent of plasma cells in the bone marrow at diagnosis}
+\item{\code{protein}}{integer indicator for whether or not the Bence-Jones protein was present in the urine at diagnosis (0=absent, 1=present)}
 }
 }
 \usage{
 myeloma
 }
 \description{
-DATASET_DESCRIPTION
+Patients diagnosed with multiple myeloma who were diagnosed and treated with alkylating agents at West Virginia University Medical Center for ages 50-80 years.
 }
 \details{
-DETAILS
+Krall et al (1975) did not provide the units for all of these measurements. In their analyses, they used some data transformations: log(bun). Collett (2023) converted data from Krall et al (1975): BUN is reported by Krall and colleagues as X1=log(BUN), however the log base and unit is unclear; Krall and colleagues reported for 65 individuals, including those younger than 50 and older than 80.
+}
+\examples{
+## To be completed.
+
+}
+\references{
+Krall JM, Uthoff VA, Harley JB. A step-up procedure for selecting variables associated with survival. Biometrics. 1975 Mar 1:49-57.
+\doi{10.2307/2529709}
 }
 \keyword{datasets}

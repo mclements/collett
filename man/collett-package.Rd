@@ -6,7 +6,15 @@
 \alias{collett-package}
 \title{collett: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.}
 \description{
-What the package does (one paragraph).
+Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/mclements/collett}
+  \item Report bugs at \url{https://github.com/mclements/collett/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Mark Clements \email{mark.clements@ki.se} (\href{https://orcid.org/0000-0003-4518-5670}{ORCID})

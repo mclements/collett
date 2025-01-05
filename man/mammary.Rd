@@ -7,19 +7,19 @@
 \format{
 A data frame with 254 rows and 4 variables:
 \describe{
-\item{\code{rat}}{integer COLUMN_DESCRIPTION}
-\item{\code{treatment}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{double COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{rat}}{integer id for each rat}
+\item{\code{treatment}}{integer treatment arm indicator (1=treatment, 0=control)}
+\item{\code{time}}{double follow-up time (days)}
+\item{\code{status}}{integer recurrence indicator (0=no, 1=yes)}
 }
 }
 \usage{
 mammary
 }
 \description{
-DATASET_DESCRIPTION
+This is an animal experiment to compare the use of retinyl acetate (related to vitamin A) across the study (treatment) to treatment with retinyl acetate to 60 days and then no further treatment (control). The female rats all had mammary tumours.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

@@ -7,26 +7,26 @@
 \format{
 A data frame with 686 rows and 11 variables:
 \describe{
-\item{\code{id}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{men}}{integer COLUMN_DESCRIPTION}
-\item{\code{size}}{integer COLUMN_DESCRIPTION}
-\item{\code{grade}}{integer COLUMN_DESCRIPTION}
-\item{\code{nodes}}{integer COLUMN_DESCRIPTION}
-\item{\code{prog}}{integer COLUMN_DESCRIPTION}
-\item{\code{oest}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{id}}{integer patient id}
+\item{\code{treat}}{integer hormonal treatment (0=no tamoxifen, 1=tamoxifen)}
+\item{\code{age}}{integer patient age (years)}
+\item{\code{men}}{integer menopausal status (1=premenopausal, 2=postmenopausal)}
+\item{\code{size}}{integer tumour size (mm)}
+\item{\code{grade}}{integer tumour grade (1,2,3)}
+\item{\code{nodes}}{integer number of positive pymph nodes}
+\item{\code{prog}}{integer progesterone receptor status (femtomoles)}
+\item{\code{oest}}{integer oestrogen receptor status (femtomoles)}
+\item{\code{time}}{integer recurrence-free survival time (days)}
+\item{\code{status}}{integer event indicator (0=censored, 1=relapse or death)}
 }
 }
 \usage{
 breast_rfs
 }
 \description{
-DATASET_DESCRIPTION
+Recurrence free survival in breast cancer patients
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

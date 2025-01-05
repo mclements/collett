@@ -7,22 +7,22 @@
 \format{
 A data frame with 26 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{rdisease}}{integer COLUMN_DESCRIPTION}
-\item{\code{perf}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer identifer}
+\item{\code{time}}{integer survival time from randomisation in days}
+\item{\code{status}}{integer event indicator (0=right censored, 1=event)}
+\item{\code{treat}}{integer treatment (1=single, 2=combined)}
+\item{\code{age}}{integer age of patients in years}
+\item{\code{rdisease}}{integer extent of residual disease (1=incomplete, 2=complete)}
+\item{\code{perf}}{integer performance status (1=good, 2=poor)}
 }
 }
 \usage{
 ovarian
 }
 \description{
-DATASET_DESCRIPTION
+Trial for treatment of ovarian cancer patients comparing cyclophosphamide alone with cyclophosphamide combined with adriamycin.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

@@ -7,27 +7,27 @@
 \format{
 A data frame with 128 rows and 12 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{centre}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{sex}}{integer COLUMN_DESCRIPTION}
-\item{\code{height}}{double COLUMN_DESCRIPTION}
-\item{\code{weight}}{double COLUMN_DESCRIPTION}
-\item{\code{pattern}}{integer COLUMN_DESCRIPTION}
-\item{\code{cort}}{integer COLUMN_DESCRIPTION}
-\item{\code{anti}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient number (1-128)}
+\item{\code{time}}{integer time to first infection (days)}
+\item{\code{status}}{integer status of patient (0=censored, 1=infection)}
+\item{\code{centre}}{integer treatment centre; see Collett (2023, page 504)}
+\item{\code{treat}}{integer treatment group (0=placebo, 1=interferon)}
+\item{\code{age}}{integer age in years}
+\item{\code{sex}}{integer sex (1=male, 2=female)}
+\item{\code{height}}{double height in cm}
+\item{\code{weight}}{double weight in kg}
+\item{\code{pattern}}{integer pattern of inheritance (1=X-linked, 2=autosomal recessive)}
+\item{\code{cort}}{integer use of corticosteroids at trial entry (1=used, 2=not used)}
+\item{\code{anti}}{integer Use of antibiotics at trial entry (1=used, 2=not used)}
 }
 }
 \usage{
 granulomatous
 }
 \description{
-DATASET_DESCRIPTION
+Trial comparing interferon with a placebo.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

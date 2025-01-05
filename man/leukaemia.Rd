@@ -7,23 +7,23 @@
 \format{
 A data frame with 23 rows and 8 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{group}}{integer COLUMN_DESCRIPTION}
-\item{\code{page}}{integer COLUMN_DESCRIPTION}
-\item{\code{dage}}{integer COLUMN_DESCRIPTION}
-\item{\code{precovery}}{integer COLUMN_DESCRIPTION}
-\item{\code{ptime}}{character COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer event indicator (0=alive, 1=dead)}
+\item{\code{group}}{integer disease group (1=ALL, 2=low-risk AML, 3=high-risk AML)}
+\item{\code{page}}{integer age of patient in years}
+\item{\code{dage}}{integer age of donor in years}
+\item{\code{precovery}}{integer platelet recovery indicator (0=no, 1=yes)}
+\item{\code{ptime}}{character time in days to return of platelets to normal level (if precovery=1)}
 }
 }
 \usage{
 leukaemia
 }
 \description{
-DATASET_DESCRIPTION
+Bone marrow transplantation in the treatment of leukaemia
 }
 \details{
-DETAILS
+See Collett (2023). Note that ptime will need conversion:).
 }
 \keyword{datasets}

@@ -7,16 +7,16 @@
 \format{
 A data frame with 11 rows and 1 variables:
 \describe{
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
+\item{\code{time}}{integer survival time from pulmonary metastasis to death in months}
 }
 }
 \usage{
 pulmonary
 }
 \description{
-DATASET_DESCRIPTION
+A very simple dataset with no censoring
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

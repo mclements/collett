@@ -7,24 +7,24 @@
 \format{
 A data frame with 37 rows and 9 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{rage}}{integer COLUMN_DESCRIPTION}
-\item{\code{dage}}{integer COLUMN_DESCRIPTION}
-\item{\code{type}}{integer COLUMN_DESCRIPTION}
-\item{\code{preg}}{integer COLUMN_DESCRIPTION}
-\item{\code{index}}{double COLUMN_DESCRIPTION}
-\item{\code{gvhd}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient number (1-37)}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer status of patient (0=alive, 1=dead)}
+\item{\code{rage}}{integer age of patient in years}
+\item{\code{dage}}{integer age of donor in years}
+\item{\code{type}}{integer type of leukaemia (1=AML, 2=ALL, 3=CML)}
+\item{\code{preg}}{integer Donor pregnancy (0=no, 1=yes)}
+\item{\code{index}}{double index of cell-lymphocyte reactions}
+\item{\code{gvhd}}{integer graft-versus-host disease (0=no, 1=yes)}
 }
 }
 \usage{
 bone_marrow
 }
 \description{
-DATASET_DESCRIPTION
+A study of 37 patients with leukaemia in complete remission who received a non-depleted allogenic bone marrow transplant.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

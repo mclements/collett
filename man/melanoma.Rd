@@ -7,19 +7,19 @@
 \format{
 A data frame with 30 rows and 4 variables:
 \describe{
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{treatment}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{age}}{integer age group (1=21-44, 2=41-60, 3=61+)}
+\item{\code{treatment}}{integer treatment arm (1=BCG, 2=C. parvum)}
+\item{\code{time}}{integer survival time (months)}
+\item{\code{status}}{integer event indicator (0=censored, 1=dead)}
 }
 }
 \usage{
 melanoma
 }
 \description{
-DATASET_DESCRIPTION
+Comparing two immunotherapy treatments for patients with melanoma
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

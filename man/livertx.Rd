@@ -7,22 +7,22 @@
 \format{
 A data frame with 281 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{gender}}{integer COLUMN_DESCRIPTION}
-\item{\code{bmi}}{double COLUMN_DESCRIPTION}
-\item{\code{ukeld}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer time on the list}
+\item{\code{status}}{integer event indicator (0=censored, including having a transplant, 1=died on the list)}
+\item{\code{age}}{integer patient age in years}
+\item{\code{gender}}{integer patient gender (1=male, 0=female)}
+\item{\code{bmi}}{double body mass index (kg/m^2)}
+\item{\code{ukeld}}{integer UK endstage liver disease score}
 }
 }
 \usage{
 livertx
 }
 \description{
-DATASET_DESCRIPTION
+Investigate the time on the liver transplantation list.
 }
 \details{
-DETAILS
+See Collett (2023). A higher UKELD is associated with worse disease severity.
 }
 \keyword{datasets}

@@ -7,22 +7,22 @@
 \format{
 A data frame with 1761 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{gender}}{integer COLUMN_DESCRIPTION}
-\item{\code{disease}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{cof}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{age}}{integer patient age in years}
+\item{\code{gender}}{integer patient gender (1=male, 2=female)}
+\item{\code{disease}}{integer primary disease (1=PBC, 2=PSC, 3=ALD)}
+\item{\code{time}}{integer time to event (days)}
+\item{\code{status}}{integer cof>0}
+\item{\code{cof}}{integer cause of graft failure (0=functioning graft, 1=rejection, 2=thrombosis, 3=recurrent disease, 4=other)}
 }
 }
 \usage{
 liver
 }
 \description{
-DATASET_DESCRIPTION
+Survival of liver transplant recipients
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

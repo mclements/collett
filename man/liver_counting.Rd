@@ -7,22 +7,22 @@
 \format{
 A data frame with 54 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{start}}{integer COLUMN_DESCRIPTION}
-\item{\code{stop}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{lbrt}}{double COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{start}}{integer start time (days)}
+\item{\code{stop}}{integer stop time (days)}
+\item{\code{status}}{integer event indicator (0=censored, 1=uncensored)}
+\item{\code{treat}}{integer treatment group (0=placebo, 1=Liverol)}
+\item{\code{age}}{integer age of the patient at start of study (years)}
+\item{\code{lbrt}}{double logarithm of bilirubin level}
 }
 }
 \usage{
 liver_counting
 }
 \description{
-DATASET_DESCRIPTION
+Artificial data
 }
 \details{
-DETAILS
+See Collett (2023). Note that the variable for log of bilirubin differs to that for "liverbase".
 }
 \keyword{datasets}

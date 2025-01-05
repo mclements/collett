@@ -7,9 +7,9 @@
 \format{
 A data frame with 42 rows and 3 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{lbr}}{double COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer date of measurement (days)}
+\item{\code{lbr}}{double log bilirubin level}
 }
 }
 \usage{
@@ -19,6 +19,6 @@ lbrdata0
 DATASET_DESCRIPTION
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

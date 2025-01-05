@@ -7,18 +7,18 @@
 \format{
 A data frame with 181 rows and 3 variables:
 \describe{
-\item{\code{environment}}{integer COLUMN_DESCRIPTION}
-\item{\code{causeofdeath}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
+\item{\code{environment}}{integer type of environment (1=standard, 2=germ-free)}
+\item{\code{causeofdeath}}{integer cause of death (1=thymic lymphoma, 2=reticulum cell sarcoma, 3=other causes)}
+\item{\code{time}}{integer survival time (days)}
 }
 }
 \usage{
 mice
 }
 \description{
-DATASET_DESCRIPTION
+Laboratory study of survival for two groups of mice exposed to radiation.
 }
 \details{
-DETAILS
+See Collett (2023). Note that are no censored event times.
 }
 \keyword{datasets}

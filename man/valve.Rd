@@ -7,26 +7,26 @@
 \format{
 A data frame with 988 rows and 11 variables:
 \describe{
-\item{\code{id}}{integer COLUMN_DESCRIPTION}
-\item{\code{futime}}{double COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{double COLUMN_DESCRIPTION}
-\item{\code{lvmi}}{double COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{sex}}{integer COLUMN_DESCRIPTION}
-\item{\code{redo}}{integer COLUMN_DESCRIPTION}
-\item{\code{emerg}}{integer COLUMN_DESCRIPTION}
-\item{\code{dm}}{integer COLUMN_DESCRIPTION}
-\item{\code{type}}{integer COLUMN_DESCRIPTION}
+\item{\code{id}}{integer patient id}
+\item{\code{futime}}{double total follow-up time from date of surgery (years)}
+\item{\code{status}}{integer event indicator (0=censored, 1=death)}
+\item{\code{time}}{double time of LVMI measurement after surgery (years)}
+\item{\code{lvmi}}{double standardised LVMI}
+\item{\code{age}}{integer age of patient in years}
+\item{\code{sex}}{integer sex of patient (0=male, 1=female)}
+\item{\code{redo}}{integer previous cardiac surgery (0=no, 1=yes)}
+\item{\code{emerg}}{integer operative urgency (0=elective, 1=urgent or emergency)}
+\item{\code{dm}}{integer preoperative diabetes mellitus (0=no, 1=yes)}
+\item{\code{type}}{integer type of valve (1=human tissue, 2=porcine tissue)}
 }
 }
 \usage{
 valve
 }
 \description{
-DATASET_DESCRIPTION
+Patients following an aortic valve replacement are measured for left ventricular mass index (LVMI).
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

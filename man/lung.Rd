@@ -7,22 +7,22 @@
 \format{
 A data frame with 196 rows and 7 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{gender}}{integer COLUMN_DESCRIPTION}
-\item{\code{bmi}}{double COLUMN_DESCRIPTION}
-\item{\code{disease}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer time from registration to the earlist of removal from list, last known follow-up date, 30 April 2012, or death (days)}
+\item{\code{status}}{integer event indicator (0=censored, 1=dead)}
+\item{\code{age}}{integer age in years}
+\item{\code{gender}}{integer gender (1=male, 2=female)}
+\item{\code{bmi}}{double body mass index}
+\item{\code{disease}}{integer disease (1=COPD, 2=fibrosis, 3=suppurative, 4=other)}
 }
 }
 \usage{
 lung
 }
 \description{
-DATASET_DESCRIPTION
+Survival of patients registered for a lung transplant
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

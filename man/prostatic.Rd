@@ -7,23 +7,27 @@
 \format{
 A data frame with 38 rows and 8 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{treatment}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{shb}}{double COLUMN_DESCRIPTION}
-\item{\code{size}}{integer COLUMN_DESCRIPTION}
-\item{\code{index}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient identifier}
+\item{\code{treatment}}{integer treatment indicator (1=placebo; 2=daily treatment with 1.0 mg of diethylstilbesterol (DES))}
+\item{\code{time}}{integ
+er survival time from trial entry to end of follow-up in months}
+\item{\code{status}}{integer for follow-up status (0=alive or died from other causes, 1=died from prostate cancer}
+\item{\code{age}}{integer age at trial entry in years}
+\item{\code{shb}}{double serum hemoglobin at trial entry in g/dL}
+\item{\code{size}}{integer size of the primary tumour in cm^3}
+\item{\code{index}}{integer Gleason index based on histopathology}
 }
 }
 \usage{
 prostatic
 }
 \description{
-DATASET_DESCRIPTION
+Randomised controlled trial from the Veteran's Administration Cooperative Urological Research Group. Includes patients who had stage III cancers and were randomised to placebo or daily oral treatment with 1.0 mg of diethylstilbesterol (DES).
 }
 \details{
-DETAILS
+TBC.
+}
+\references{
+Andrews DF, Herzberg AM. Data: a collection of problems from many fields for the student and research worker. Springer Series in Statistics; Springer New York, NY; 1985. \doi{10.1007/978-1-4612-5098-2}
 }
 \keyword{datasets}

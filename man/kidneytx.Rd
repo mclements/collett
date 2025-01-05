@@ -7,24 +7,24 @@
 \format{
 A data frame with 1439 rows and 9 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{centre}}{integer COLUMN_DESCRIPTION}
-\item{\code{tsurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{tcens}}{integer COLUMN_DESCRIPTION}
-\item{\code{dage}}{integer COLUMN_DESCRIPTION}
-\item{\code{dtype}}{integer COLUMN_DESCRIPTION}
-\item{\code{rage}}{integer COLUMN_DESCRIPTION}
-\item{\code{diab}}{integer COLUMN_DESCRIPTION}
-\item{\code{cit}}{double COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{centre}}{integer transplant centre (1-8)}
+\item{\code{tsurv}}{integer transplant survival time (days)}
+\item{\code{tcens}}{integer event indicator (0=censored, 1=transplant failure)}
+\item{\code{dage}}{integer donor age (years)}
+\item{\code{dtype}}{integer donor type (0=deceased following brain death, 1=circulatory death)}
+\item{\code{rage}}{integer recipient age (years)}
+\item{\code{diab}}{integer diabetic status (0=absent, 1=present)}
+\item{\code{cit}}{double cold ischaemic time (hours)}
 }
 }
 \usage{
 kidneytx
 }
 \description{
-DATASET_DESCRIPTION
+Transplant survival rates by recipients of organs from deceased donors. No event was defined as being alive  with a functioning graft at the last known follow-up.
 }
 \details{
-DETAILS
+See Collett (2023). Thirty-five patients had tsurv==0 (that is, the transplanted kidney did not function).
 }
 \keyword{datasets}

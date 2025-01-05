@@ -7,19 +7,19 @@
 \format{
 A data frame with 37 rows and 4 variables:
 \describe{
-\item{\code{a}}{integer COLUMN_DESCRIPTION}
-\item{\code{b}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{a}}{integer factor a}
+\item{\code{b}}{integer factor b}
+\item{\code{time}}{integer event time}
+\item{\code{status}}{integer event status (1=event, 0=right censored)}
 }
 }
 \usage{
 illustration
 }
 \description{
-DATASET_DESCRIPTION
+Artificial data on patient survival classified according to factors a and b
 }
 \details{
-DETAILS
+See Collett (2023).
 }
 \keyword{datasets}

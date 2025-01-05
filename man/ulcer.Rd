@@ -7,21 +7,21 @@
 \format{
 A data frame with 43 rows and 6 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{duration}}{integer COLUMN_DESCRIPTION}
-\item{\code{treatment}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{result}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{age}}{integer age at the end of the trial in years}
+\item{\code{duration}}{integer duration of verified disease (1: <5 years, 2: >=5 years}
+\item{\code{treatment}}{integer treatment arm (1=A,2=B) }
+\item{\code{time}}{integer time since last visit (months)}
+\item{\code{result}}{integer result of the last visit (1=no ulcer detected, 2=ulcer detected)}
 }
 }
 \usage{
 ulcer
 }
 \description{
-DATASET_DESCRIPTION
+A double-blind trial comparing two treatments for ulcers. Data from Belgium.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

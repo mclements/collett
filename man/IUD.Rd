@@ -7,17 +7,17 @@
 \format{
 A data frame with 18 rows and 2 variables:
 \describe{
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
+\item{\code{time}}{integer Time in weeks to discontinuation of the use of an IUD}
+\item{\code{status}}{integer Indicator for whether the IUD was discontinued: 0=No, 1=Yes}
 }
 }
 \usage{
 IUD
 }
 \description{
-DATASET_DESCRIPTION
+A very simple dataset showing potential right censoring for time to discontinuation of the use of an IUD.
 }
 \details{
-DETAILS
+These data are reported in Table 1.1 (Collett, 2023, page 6).
 }
 \keyword{datasets}

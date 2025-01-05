@@ -7,19 +7,19 @@
 \format{
 A data frame with 90 rows and 4 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer event indicator (0=censored, 1=dead)}
+\item{\code{treat}}{integer treatment arm (0=chemotherapy alone, 1=chemotherapy and radiotherapy)}
 }
 }
 \usage{
 gcancer
 }
 \description{
-DATASET_DESCRIPTION
+Survival of patients with gastric cancer
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

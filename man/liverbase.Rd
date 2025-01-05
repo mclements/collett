@@ -7,21 +7,21 @@
 \format{
 A data frame with 12 rows and 6 variables:
 \describe{
-\item{\code{patient}}{integer COLUMN_DESCRIPTION}
-\item{\code{time}}{integer COLUMN_DESCRIPTION}
-\item{\code{status}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{lbr}}{double COLUMN_DESCRIPTION}
+\item{\code{patient}}{integer patient id}
+\item{\code{time}}{integer survival time in days}
+\item{\code{status}}{integer event indicator (0=censored, 1=uncensored)}
+\item{\code{age}}{integer age of the patient (years)}
+\item{\code{treat}}{integer treatment group (0=placebo, 1=Liverol)}
+\item{\code{lbr}}{double logarithm of bilirubin level}
 }
 }
 \usage{
 liverbase
 }
 \description{
-DATASET_DESCRIPTION
+Articial data
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

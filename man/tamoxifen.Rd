@@ -7,33 +7,33 @@
 \format{
 A data frame with 641 rows and 18 variables:
 \describe{
-\item{\code{id}}{integer COLUMN_DESCRIPTION}
-\item{\code{treat}}{integer COLUMN_DESCRIPTION}
-\item{\code{age}}{integer COLUMN_DESCRIPTION}
-\item{\code{size}}{double COLUMN_DESCRIPTION}
-\item{\code{hist}}{integer COLUMN_DESCRIPTION}
-\item{\code{hr}}{integer COLUMN_DESCRIPTION}
-\item{\code{hb}}{integer COLUMN_DESCRIPTION}
-\item{\code{andis}}{integer COLUMN_DESCRIPTION}
-\item{\code{lsurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{ls}}{integer COLUMN_DESCRIPTION}
-\item{\code{asurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{as}}{integer COLUMN_DESCRIPTION}
-\item{\code{dsurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{ds}}{integer COLUMN_DESCRIPTION}
-\item{\code{msurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{ms}}{integer COLUMN_DESCRIPTION}
-\item{\code{tsurv}}{integer COLUMN_DESCRIPTION}
-\item{\code{ts}}{integer COLUMN_DESCRIPTION}
+\item{\code{id}}{integer patient identifier}
+\item{\code{treat}}{integer treatment group (0=tamoxifen+radiotherapy, 1=tamoxifen)}
+\item{\code{age}}{integer patient age at study entry (years)}
+\item{\code{size}}{double tumour size (cm)}
+\item{\code{hist}}{integer tumour histology (1=ductal, 2=lobular, 3=medullary, 4=mixed, 5=other)}
+\item{\code{hr}}{integer hormone receptor level (0=negative, 1=positive)}
+\item{\code{hb}}{integer Haemoglobin level (g/l)}
+\item{\code{andis}}{integer axillary relapse (0=no, 1=yes)}
+\item{\code{lsurv}}{integer time to local relapse or last follow-up (days)}
+\item{\code{ls}}{integer local relapse (0=no, 1=yes))}
+\item{\code{asurv}}{integer time to axillary relapse or last follow-up (days)}
+\item{\code{as}}{integer axillary relapse (0=no, 1=yes)}
+\item{\code{dsurv}}{integer Time to distant relapse or last follow-up (days)}
+\item{\code{ds}}{integer distant relapse (0=no, 1=yes)}
+\item{\code{msurv}}{integer time to second malignancy or last follow-up (days)}
+\item{\code{ms}}{integer second malignancy (0=no, 1=yes)}
+\item{\code{tsurv}}{integer time from randomisation to death or last follow-up (days)}
+\item{\code{ts}}{integer status at last follw-up (0=alive, 1=dead)}
 }
 }
 \usage{
 tamoxifen
 }
 \description{
-DATASET_DESCRIPTION
+Clinical trial for breast cancer patients comparing combined tamoxifen and radiotherapy with tamoxifen alone.
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}

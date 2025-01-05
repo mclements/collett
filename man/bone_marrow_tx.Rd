@@ -7,24 +7,24 @@
 \format{
 A data frame with 2204 rows and 9 variables:
 \describe{
-\item{\code{id}}{integer COLUMN_DESCRIPTION}
-\item{\code{leukaemia}}{character COLUMN_DESCRIPTION}
-\item{\code{age}}{character COLUMN_DESCRIPTION}
-\item{\code{match}}{integer COLUMN_DESCRIPTION}
-\item{\code{tcell}}{integer COLUMN_DESCRIPTION}
-\item{\code{ptime}}{integer COLUMN_DESCRIPTION}
-\item{\code{pcens}}{integer COLUMN_DESCRIPTION}
-\item{\code{rdtime}}{integer COLUMN_DESCRIPTION}
-\item{\code{rdcens}}{integer COLUMN_DESCRIPTION}
+\item{\code{id}}{integer patient id}
+\item{\code{leukaemia}}{character type of leukaemia (CML,ALL,AML)}
+\item{\code{age}}{character age group of patient in years (<=20, 21-40, >40))}
+\item{\code{match}}{integer indicator for whether there was a donor gender match (0=no, 1=yes)}
+\item{\code{tcell}}{integer indicator for whether there was T-cell depletion (1=yes, n=no)}
+\item{\code{ptime}}{integer time to platelet recovery (days)}
+\item{\code{pcens}}{integer event indicator for platelet recovery (1=event, 0=censored)}
+\item{\code{rdtime}}{integer time to relapse of death (days)}
+\item{\code{rdcens}}{integer event indicator for relapse or death (1=event, 0=censored)}
 }
 }
 \usage{
 bone_marrow_tx
 }
 \description{
-DATASET_DESCRIPTION
+Patient outcome following bone marrow transplantation
 }
 \details{
-DETAILS
+See Collett (2023)
 }
 \keyword{datasets}
