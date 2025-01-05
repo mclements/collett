@@ -4,7 +4,7 @@
 \name{collett-package}
 \alias{collett}
 \alias{collett-package}
-\title{collett: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.}
+\title{collett: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett}
 \description{
 Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.
 }

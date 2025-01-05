@@ -606,6 +606,7 @@ NULL
 #' head(collett_data("A numerical illustration.dat"))
 #' ## which is equivalent to: head(illustration)
 #' @return A data-frame
+#' @export
 collett_data <- function(name) {
-    read.table(system.file(paste0("extdata/",name),package="collett"), header=TRUE)
+    utils::read.table(system.file(paste0("extdata/",name),package="collett"), header=TRUE)
 }

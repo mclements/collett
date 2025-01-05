@@ -1,9 +1,11 @@
 Package: collett
 Type: Package
-Title: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.
-Authors@R: c(person("Mark", "Clements", email = "mark.clements@ki.se", role = c("aut", "cre"),
-                  comment = c(ORCID = "0000-0003-4518-5670")))
-Version: 0.0.1
+Title: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett
+Authors@R: c(person("Mark", "Clements",
+                    email = "mark.clements@ki.se",
+                    role = c("aut", "cre"),
+                    comment = c(ORCID = "0000-0003-4518-5670")))
+Version: 0.1.0
 Maintainer: Mark Clements <mark.clements@ki.se>
 Description: Datasets and Examples from "Modelling Survival Data in Medical Research" by Collett.
 URL: https://github.com/mclements/collett
@@ -11,6 +13,10 @@ BugReports: https://github.com/mclements/collett/issues
 License: MIT + file LICENSE
 Depends:
     R (>= 3.5.0)
+Imports:
+    utils
+Suggests:
+    survival
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
