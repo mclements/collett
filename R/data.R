@@ -78,7 +78,7 @@
 #' \link{valve} \tab "Survival following aortic valve replacement.dat" \cr
 #' }
 #' @source \url{https://s3-eu-west-1.amazonaws.com/s3-euw1-ap-pe-ws4-cws-documents.ri-prod/9781032252858/Data%20sets%20from%20Modelling%20Survival%20Data%20in%20Medical%20Research%2C%204th%20edition.zip}
-NULL
+"_PACKAGE"
 
 #' @title A numerical illustration
 #' @description Artificial data on patient survival classified according to factors a and b
@@ -608,5 +608,7 @@ NULL
 #' @return A data-frame
 #' @export
 collett_data <- function(name) {
-    utils::read.table(system.file(paste0("extdata/",name),package="collett"), header=TRUE)
+    new_name = gsub(" ","_",name)
+    utils::read.table(system.file(paste0("extdata/",new_name),package="collett"),
+                      header=TRUE)
 }
